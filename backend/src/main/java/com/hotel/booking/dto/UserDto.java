@@ -1,6 +1,6 @@
 package com.hotel.booking.dto;
 
-import com.hotel.booking.model.Role;
+import com.hotel.booking.entity.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;

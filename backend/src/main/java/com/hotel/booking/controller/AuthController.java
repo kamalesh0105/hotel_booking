@@ -4,7 +4,7 @@ import com.hotel.booking.dto.AuthResponse;
 import com.hotel.booking.dto.LoginRequest;
 import com.hotel.booking.dto.RegisterRequest;
 import com.hotel.booking.dto.UserDto;
-import com.hotel.booking.model.User;
+import com.hotel.booking.entity.User;
 import com.hotel.booking.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.hotel.booking.model;
+package com.hotel.booking.entity;
 
 public enum Role {
     USER,
