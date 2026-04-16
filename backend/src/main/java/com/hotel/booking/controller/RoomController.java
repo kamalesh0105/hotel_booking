@@ -1,4 +1,4 @@
-package com.hotel.booking.controller;
+﻿package com.hotel.booking.controller;
 
 import com.hotel.booking.dto.RoomDTO;
 import com.hotel.booking.service.RoomService;
@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -17,12 +16,12 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping("/hotels/{hotelId}/rooms")
-    public ResponseEntity<List<RoomDTO>> getRoomsByHotelId(@PathVariable UUID hotelId) {
+    public ResponseEntity<List<RoomDTO>> getRoomsByHotelId(@PathVariable Long hotelId) {
         return ResponseEntity.ok(roomService.getRoomsByHotelId(hotelId));
     }
 
     @GetMapping("/rooms/{id}")
-    public ResponseEntity<RoomDTO> getRoomById(@PathVariable UUID id) {
+    public ResponseEntity<RoomDTO> getRoomById(@PathVariable Long id) {
         return ResponseEntity.ok(roomService.getRoomById(id));
     }
 }

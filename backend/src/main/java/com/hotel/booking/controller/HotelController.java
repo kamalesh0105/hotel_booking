@@ -1,4 +1,4 @@
-package com.hotel.booking.controller;
+﻿package com.hotel.booking.controller;
 
 import com.hotel.booking.dto.HotelDTO;
 import com.hotel.booking.service.HotelService;
@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +21,7 @@ public class HotelController {
     }
 
     @GetMapping("/hotels/{id}")
-    public ResponseEntity<HotelDTO> getHotelById(@PathVariable UUID id) {
+    public ResponseEntity<HotelDTO> getHotelById(@PathVariable Long id) {
         HotelDTO hotel = hotelService.getHotelById(id);
         if (hotel != null) {
             return ResponseEntity.ok(hotel);
@@ -45,7 +44,7 @@ public class HotelController {
     }
 
     @PutMapping("/admin/hotels/{id}")
-    public ResponseEntity<HotelDTO> updateHotel(@PathVariable UUID id, @RequestBody HotelDTO hotelDTO) {
+    public ResponseEntity<HotelDTO> updateHotel(@PathVariable Long id, @RequestBody HotelDTO hotelDTO) {
         HotelDTO updatedHotel = hotelService.updateHotel(id, hotelDTO);
         if (updatedHotel != null) {
             return ResponseEntity.ok(updatedHotel);
@@ -54,7 +53,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/admin/hotels/{id}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {
         if (hotelService.deleteHotel(id)) {
             return ResponseEntity.noContent().build();
         }

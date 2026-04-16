@@ -1,4 +1,4 @@
-package com.hotel.booking.controller;
+﻿package com.hotel.booking.controller;
 
 import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.dto.BookingRequestDTO;
@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -23,18 +22,18 @@ public class BookingController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity<List<BookingDTO>> getMyBookings(@RequestParam UUID userId) {
+    public ResponseEntity<List<BookingDTO>> getMyBookings(@RequestParam Long userId) {
         // In a real app, userId would come from JWT / SecurityContext
         return ResponseEntity.ok(bookingService.getUserBookings(userId));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookingDTO> getBookingById(@PathVariable UUID id) {
+    public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
         return ResponseEntity.ok(bookingService.getBookingById(id));
     }
 
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<BookingDTO> cancelBooking(@PathVariable UUID id) {
+    public ResponseEntity<BookingDTO> cancelBooking(@PathVariable Long id) {
         return ResponseEntity.ok(bookingService.cancelBooking(id));
     }
 }

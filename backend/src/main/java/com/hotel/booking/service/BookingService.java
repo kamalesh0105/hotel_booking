@@ -1,4 +1,4 @@
-package com.hotel.booking.service;
+﻿package com.hotel.booking.service;
 
 import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.dto.BookingRequestDTO;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,21 +62,21 @@ public class BookingService {
     }
 
     @Transactional(readOnly = true)
-    public List<BookingDTO> getUserBookings(UUID userId) {
+    public List<BookingDTO> getUserBookings(Long userId) {
         return bookingRepository.findByUserId(userId).stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public BookingDTO getBookingById(UUID id) {
+    public BookingDTO getBookingById(Long id) {
         Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
         return mapToDTO(booking);
     }
 
     @Transactional
-    public BookingDTO cancelBooking(UUID id) {
+    public BookingDTO cancelBooking(Long id) {
         Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
 
@@ -101,7 +100,7 @@ public class BookingService {
     }
 
     @Transactional
-    public BookingDTO updateBookingStatus(UUID id, BookingStatus status) {
+    public BookingDTO updateBookingStatus(Long id, BookingStatus status) {
         Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
 

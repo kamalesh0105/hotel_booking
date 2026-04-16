@@ -1,4 +1,4 @@
-package com.hotel.booking.service;
+﻿package com.hotel.booking.service;
 
 import com.hotel.booking.dto.RoomDTO;
 import com.hotel.booking.dto.RoomRequestDTO;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,14 +21,14 @@ public class RoomService {
     private final HotelRepository hotelRepository;
 
     @Transactional(readOnly = true)
-    public List<RoomDTO> getRoomsByHotelId(UUID hotelId) {
+    public List<RoomDTO> getRoomsByHotelId(Long hotelId) {
         return roomRepository.findByHotelId(hotelId).stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public RoomDTO getRoomById(UUID id) {
+    public RoomDTO getRoomById(Long id) {
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room not found"));
         return mapToDTO(room);
@@ -53,7 +52,7 @@ public class RoomService {
     }
 
     @Transactional
-    public RoomDTO updateRoom(UUID id, RoomRequestDTO requestDTO) {
+    public RoomDTO updateRoom(Long id, RoomRequestDTO requestDTO) {
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room not found"));
         
@@ -71,7 +70,7 @@ public class RoomService {
     }
 
     @Transactional
-    public void deleteRoom(UUID id) {
+    public void deleteRoom(Long id) {
         if (!roomRepository.existsById(id)) {
             throw new RuntimeException("Room not found");
         }
@@ -79,7 +78,7 @@ public class RoomService {
     }
 
     @Transactional
-    public RoomDTO updateAvailability(UUID id, Integer availableRooms) {
+    public RoomDTO updateAvailability(Long id, Integer availableRooms) {
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room not found"));
 

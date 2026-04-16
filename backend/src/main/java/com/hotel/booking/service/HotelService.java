@@ -1,4 +1,4 @@
-package com.hotel.booking.service;
+﻿package com.hotel.booking.service;
 
 import com.hotel.booking.dto.HotelDTO;
 import com.hotel.booking.entity.Hotel;
@@ -12,7 +12,6 @@ import jakarta.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +26,7 @@ public class HotelService {
                 .collect(Collectors.toList());
     }
 
-    public HotelDTO getHotelById(UUID id) {
+    public HotelDTO getHotelById(Long id) {
         return hotelRepository.findById(id)
                 .map(this::mapToDTO)
                 .orElse(null);
@@ -58,7 +57,7 @@ public class HotelService {
     }
 
     @Transactional
-    public HotelDTO updateHotel(UUID id, HotelDTO hotelDTO) {
+    public HotelDTO updateHotel(Long id, HotelDTO hotelDTO) {
         return hotelRepository.findById(id).map(existingHotel -> {
             existingHotel.setName(hotelDTO.getName());
             existingHotel.setLocation(hotelDTO.getLocation());
@@ -70,7 +69,7 @@ public class HotelService {
     }
 
     @Transactional
-    public boolean deleteHotel(UUID id) {
+    public boolean deleteHotel(Long id) {
         if (hotelRepository.existsById(id)) {
             hotelRepository.deleteById(id);
             return true;

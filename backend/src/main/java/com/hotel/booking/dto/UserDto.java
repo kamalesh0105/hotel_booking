@@ -1,4 +1,4 @@
-package com.hotel.booking.dto;
+﻿package com.hotel.booking.dto;
 
 import com.hotel.booking.entity.Role;
 import lombok.Data;
@@ -7,14 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserDto {
-    private UUID id;
+    private Long id;
     private String name;
     private String email;
     private String phone;

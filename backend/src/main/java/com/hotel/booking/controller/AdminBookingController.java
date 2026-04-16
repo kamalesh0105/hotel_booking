@@ -1,4 +1,4 @@
-package com.hotel.booking.controller;
+﻿package com.hotel.booking.controller;
 
 import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.dto.BookingStatusUpdateDTO;
@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/admin/bookings")
@@ -24,7 +23,7 @@ public class AdminBookingController {
 
     @PutMapping("/{id}/status")
     public ResponseEntity<BookingDTO> updateBookingStatus(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @RequestBody BookingStatusUpdateDTO request) {
         return ResponseEntity.ok(bookingService.updateBookingStatus(id, request.getStatus()));
     }
