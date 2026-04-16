@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/admin/rooms")
+@RequestMapping("/admin/rooms")
 @RequiredArgsConstructor
 public class AdminRoomController {
 

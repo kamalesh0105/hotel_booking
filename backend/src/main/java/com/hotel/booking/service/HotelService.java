@@ -33,13 +33,37 @@ public class HotelService {
     }
 
     public List<HotelDTO> searchHotels(String location, Double minPrice, Double maxPrice, Integer capacity) {
-        // Price and capacity are ignored here as they require the Room entity
-        // which is excluded as per the current requirements.
         Specification<Hotel> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            
+            // Hotel Location Filter
             if (location != null && !location.trim().isEmpty()) {
                 predicates.add(cb.like(cb.lower(root.get("location")), "%" + location.toLowerCase() + "%"));
             }
+
+            // Room Properties Filters (via Subquery)
+            if (minPrice != null || maxPrice != null || capacity != null) {
+                jakarta.persistence.criteria.Subquery<com.hotel.booking.entity.Room> roomSubquery = query.subquery(com.hotel.booking.entity.Room.class);
+                jakarta.persistence.criteria.Root<com.hotel.booking.entity.Room> roomRoot = roomSubquery.from(com.hotel.booking.entity.Room.class);
+                roomSubquery.select(roomRoot);
+
+                List<Predicate> roomPredicates = new ArrayList<>();
+                roomPredicates.add(cb.equal(roomRoot.get("hotel"), root)); // Join condition connecting room to hotel
+
+                if (minPrice != null) {
+                    roomPredicates.add(cb.ge(roomRoot.get("pricePerNight"), minPrice));
+                }
+                if (maxPrice != null) {
+                    roomPredicates.add(cb.le(roomRoot.get("pricePerNight"), maxPrice));
+                }
+                if (capacity != null) {
+                    roomPredicates.add(cb.ge(roomRoot.get("capacity"), capacity));
+                }
+
+                roomSubquery.where(roomPredicates.toArray(new Predicate[0]));
+                predicates.add(cb.exists(roomSubquery));
+            }
+
             return cb.and(predicates.toArray(new Predicate[0]));
         };
 
