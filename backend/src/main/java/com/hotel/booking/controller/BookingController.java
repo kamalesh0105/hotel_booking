@@ -1,4 +1,4 @@
-﻿package com.hotel.booking.controller;
+package com.hotel.booking.controller;
 
 import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.dto.BookingRequestDTO;

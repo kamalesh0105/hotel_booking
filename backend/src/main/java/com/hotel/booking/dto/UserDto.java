@@ -1,4 +1,4 @@
-﻿package com.hotel.booking.dto;
+package com.hotel.booking.dto;
 
 import com.hotel.booking.entity.Role;
 import lombok.Data;

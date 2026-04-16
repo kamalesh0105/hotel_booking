@@ -1,4 +1,4 @@
-﻿package com.hotel.booking.dto;
+package com.hotel.booking.dto;
 
 import com.hotel.booking.entity.BookingStatus;
 import lombok.AllArgsConstructor;
