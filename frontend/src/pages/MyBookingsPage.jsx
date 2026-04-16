@@ -25,6 +25,23 @@ function MyBookingsPage() {
     fetchBookings();
   }, []);
 
+  // Handle cancellation logic gracefully 
+  const handleCancelBooking = async (id) => {
+    if (!window.confirm("Are you totally sure you want to cancel this booking?")) return;
+    
+    try {
+      await api.put(`/bookings/${id}/cancel`);
+      // Optimistically push the new status straight into local window state 
+      setBookings((prevBookings) =>
+        prevBookings.map((booking) =>
+          booking.id === id ? { ...booking, status: "CANCELLED" } : booking
+        )
+      );
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to successfully cancel booking.");
+    }
+  };
+
   // Helper to style the booking status badge
   const getStatusStyle = (status) => {
     switch (status?.toUpperCase()) {
@@ -69,10 +86,20 @@ function MyBookingsPage() {
                 )}
               </div>
 
-              {/* Status Badge */}
-              <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getStatusStyle(booking.status)}`}>
-                {booking.status || "UNKNOWN"}
-              </span>
+              {/* Status Badge & Action Controls */}
+              <div className="flex flex-col items-end gap-2">
+                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getStatusStyle(booking.status)}`}>
+                  {booking.status || "UNKNOWN"}
+                </span>
+                {booking.status === "CONFIRMED" && (
+                  <button
+                    onClick={() => handleCancelBooking(booking.id)}
+                    className="text-xs bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1 rounded border border-red-200 transition font-medium"
+                  >
+                    Cancel Booking
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         ))}
